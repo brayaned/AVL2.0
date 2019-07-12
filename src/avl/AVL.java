@@ -3,6 +3,7 @@ package avl;
 
 import java.awt.Graphics;
 import java.util.Stack;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 
@@ -282,63 +283,66 @@ public class AVL {
         }
         return t;
     }
-    
+    int c1;
     int retirarAVL(int n,int c){
+        c1=0;
         Stack pila=new Stack();
         Nodo p,q,t,r;
         int llave, accion;
-        
+        int []resul={0,c};
         int []terminar=new int[1];
         
         boolean encontro=false;
         
         if(raiz==null){
-            c++;
-            return c;
+            c1++;
+            return (1);
         }
         terminar[0]=0;
         p=raiz;
         while(!encontro && p!=null){
             pila.push(p);
             if(n<p.info){
-                c++;
+                c1++;
                 p=p.izq;
             }else if(n>p.info){
-                c++;
+                c1++;
                 p=p.der;
             }else {
-                c++;
+                c1++;
                 encontro=true;
             }
             
         }
         if(!encontro){
-            c++;
-            return c;
+            c1++;
+          
+            
+            return (2);
         }    
         t=null;
         p=(Nodo)pila.pop();
         llave=p.info;
         if(p.izq==null && p.der==null){
-            c++;
+            c1++;
             accion=0;
         }else if(p.der==null){
             accion=1;
-            c++;
+            c1++;
         }else if(p.izq==null){
-            c++;
+            c1++;
             accion=2;
         }else {
-            c++;
+            c1++;
             accion=3;
         }
         if(accion==0 || accion==1 || accion==2){
-            c++;
+            c1++;
             if(!pila.empty()){
-                c++;
+                c1++;
                 q=(Nodo)pila.pop();
                 if(llave<q.info){
-                    c++;
+                    c1++;
                     switch(accion){
                         case 0:
                         case 1:
@@ -351,7 +355,7 @@ public class AVL {
                             break;                            
                     }
                 }else{
-                    c++;
+                    c1++;
                     switch(accion){
                         case 0:
                         case 2:
@@ -366,7 +370,7 @@ public class AVL {
                 }
                             
             }else{
-                c++;
+                c1++;
                 switch(accion){
                     case 0:
                         raiz=null;
@@ -395,13 +399,13 @@ public class AVL {
             }
             llave=r.info=p.info;
             if(q!=null){
-                c++;
+                c1++;
                 q.izq=p.der;
                 t=bal_der(q,terminar);
                 
             }
             else{
-                c++;
+                c1++;
                 r.der=p.der;
                 t=bal_izq(r,terminar);
                 
@@ -413,18 +417,18 @@ public class AVL {
         while(!pila.empty() && terminar[0]==0){
             q=(Nodo)pila.pop();
             if(llave<q.info){
-                c++;
+                c1++;
                 if(t!=null){
-                    c++;
+                    c1++;
                     q.izq=t;
                     t=null;
                 }
                 t=bal_der(q,terminar);
             }
             else{
-                c++;
+                c1++;
                 if(t!=null){
-                    c++;
+                    c1++;
                     q.der=t;
                     t=null;
                 }
@@ -433,27 +437,35 @@ public class AVL {
         }
         
         if(t!=null){
-            c++;
+            c1++;
             if(pila.empty()==true){
-                c++;
+                c1++;
                 raiz=t;
                 
             }
             else{
-                c++;
+                c1++;
                 q=(Nodo)pila.pop();
                 if(llave==q.info){
-                    c++;
+                    c1++;
                     q.izq=t;
                 }else{
-                    c++;
+                    c1++;
                     q.der=t;
                 }
                 
             }
         }
-        return c;
+        
+        
+        return (0);
+        
     }
+
+    public int getC1() {
+        return c1;
+    }
+ 
     public JPanel getdibujo() {
         return new ArbolExpresionGrafico(this);
     }

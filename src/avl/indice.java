@@ -15,7 +15,7 @@ public class indice {
     int n;
  AVL avl = new AVL();
     
- void llenar(){
+ int llenar(){
      int c=0,suma=0,aux;
   int[] numeros =new int[100];
   String[]numeros2= new String [100];
@@ -54,6 +54,7 @@ public class indice {
         aux=avl.insAVL(numeros[i],c);
         System.out.println(avl.insAVL(numeros[i],c));
         suma=suma+aux;
+        
     }    
     for (int i=0; i < numeros.length; i++){
          avl.insAVL(numeros[i],c);
@@ -62,15 +63,23 @@ public class indice {
      System.out.println("suma +"+suma*2);
     
  
-    
+    return suma*2;
     
  }
- 
+ int c1;
  int retirar (int numero){
-     int cr=0;
-    int nel= avl.retirarAVL(numero,cr);
-     System.out.println("retirar--"+nel);
+     
+     c1=0;
+    int nel=avl.retirarAVL(numero,0);
+    c1=avl.getC1();
+     System.out.println("retirar--"+avl.getC1());
         return nel; }
+
+    public int getC1() {
+        return c1;
+    }
+ 
+ 
   public JPanel getdibujo() {
         return  avl.getdibujo();
     }
